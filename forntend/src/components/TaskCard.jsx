@@ -1,6 +1,5 @@
 import { Trash2, Edit, CheckCircle, Clock } from 'lucide-react';
 
-// 'onEdit' prop ko yahan add karein
 const TaskCard = ({ task, onDelete, onUpdateStatus, onEdit }) => {
   const getStatusClasses = () => {
     switch (task.status) {
@@ -52,9 +51,8 @@ const TaskCard = ({ task, onDelete, onUpdateStatus, onEdit }) => {
             <CheckCircle className="w-5 h-5" />
           </button>
           
-          {/* === YAHAN onClick EVENT ADD KAREIN === */}
           <button 
-            onClick={() => onEdit(task)} // task object ko pass karein
+            onClick={() => onEdit(task)} 
             className="text-gray-400 hover:text-indigo-400 transition duration-300" 
             title="Edit Task"
           >

@@ -2,12 +2,10 @@ import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 
 const EditTaskModal = ({ task, isOpen, onClose, onSave }) => {
-  // Modal ke andar title aur description ko manage karne ke liye internal state
   const [editTitle, setEditTitle] = useState('');
   const [editDesc, setEditDesc] = useState('');
 
-  // Jab bhi 'task' prop badlega (yaani user naye task pe click karega),
-  // modal ke state ko uss task ki details se update kar do
+  
   useEffect(() => {
     if (task) {
       setEditTitle(task.title);
@@ -15,11 +13,11 @@ const EditTaskModal = ({ task, isOpen, onClose, onSave }) => {
     }
   }, [task]);
 
-  // Agar modal open nahi hai, toh kuch bhi render mat karo (null)
+  
   if (!isOpen) return null;
 
   const handleSave = () => {
-    // Sirf title aur description waala object save ke liye bhejo
+    
     onSave(task._id, {
       title: editTitle,
       description: editDesc,
@@ -27,17 +25,15 @@ const EditTaskModal = ({ task, isOpen, onClose, onSave }) => {
   };
 
   return (
-    // Backdrop (poori screen ko cover karne waala background)
+    // Backdrop 
     <div 
       className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
-      onClick={onClose} // Backdrop pe click karne se modal band ho jayega
+      onClick={onClose} 
     >
-      {/* Modal Content */}
       <div
         className="bg-gray-800 rounded-xl shadow-2xl p-6 w-full max-w-lg relative border border-gray-700"
-        onClick={(e) => e.stopPropagation()} // Modal ke andar click karne se modal band nahi hoga
+        onClick={(e) => e.stopPropagation()} 
       >
-        {/* Close Button (Top-Right) */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-white"
@@ -75,7 +71,6 @@ const EditTaskModal = ({ task, isOpen, onClose, onSave }) => {
           </div>
         </div>
 
-        {/* Action Buttons (Save/Cancel) */}
         <div className="flex justify-end space-x-4 mt-6">
           <button
             onClick={onClose}

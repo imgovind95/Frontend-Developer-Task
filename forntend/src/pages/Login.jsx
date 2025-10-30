@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useAuthStore from '../store/authStore';
 
-// API URL (Backend ka)
+// API URL (Backend )
 const API_URL = 'http://localhost:5000/api/auth/login';
 
 const Login = () => {
@@ -22,11 +22,10 @@ const Login = () => {
     try {
       const response = await axios.post(API_URL, { email, password });
       
-      // Zustand store mein data save karein
       login(response.data, response.data.token);
 
       setLoading(false);
-      navigate('/dashboard'); // Dashboard par bhej do
+      navigate('/dashboard'); 
     } catch (err) {
       setLoading(false);
       setError(err.response?.data?.message || 'Login failed. Please try again.');

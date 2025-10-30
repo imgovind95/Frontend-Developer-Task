@@ -2,15 +2,13 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import useAuthStore from '../store/authStore';
 import TaskCard from '../components/TaskCard';
-import EditTaskModal from '../components/EditTaskModal'; // Modal ko import karein
+import EditTaskModal from '../components/EditTaskModal'; 
 import { Plus } from 'lucide-react';
 
-// Axios instance to send token automatically
 const api = axios.create({
   baseURL: 'http://localhost:5000/api',
 });
 
-// Bug fix for token
 api.interceptors.request.use((config) => {
   const token = useAuthStore.getState().token;
   if (token) {
@@ -28,7 +26,6 @@ const Dashboard = () => {
   const [error, setError] = useState(null);
   const { user } = useAuthStore();
 
-  // === MODAL KE LIYE NAYA STATE ===
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentTaskToEdit, setCurrentTaskToEdit] = useState(null);
 
@@ -84,24 +81,19 @@ const Dashboard = () => {
     }
   };
 
-  // === TASK EDIT KARNE KE LIYE NAYA FUNCTION ===
   const handleEditTask = async (taskId, updatedData) => {
     setError(null);
     try {
-      // Backend ko PUT request bhejo
       const { data: updatedTask } = await api.put(`/tasks/${taskId}`, updatedData);
       
-      // Local state (tasks array) ko update karo
       setTasks(tasks.map((task) => (task._id === taskId ? updatedTask : task)));
       
-      // Modal band kar do
       closeEditModal();
     } catch (err) {
       setError('Failed to update task.');
     }
   };
 
-  // === MODAL KO KONTROL KARNE KE FUNCTIONS ===
   const openEditModal = (task) => {
     setCurrentTaskToEdit(task);
     setIsModalOpen(true);
@@ -176,14 +168,13 @@ const Dashboard = () => {
                 task={task} 
                 onDelete={handleDeleteTask}
                 onUpdateStatus={handleUpdateStatus}
-                onEdit={openEditModal} // onEdit prop ko yahan pass karein
+                onEdit={openEditModal} 
               />
             ))}
           </div>
         )}
       </div>
 
-      {/* === MODAL KO YAHAN RENDER KAREIN === */}
       <EditTaskModal
         isOpen={isModalOpen}
         onClose={closeEditModal}
